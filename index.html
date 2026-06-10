@@ -58,6 +58,9 @@ button:active { transform:scale(0.95); }
 <div id="level2" class="page">
   <div class="card">
     <h2>第二關：植物找家園</h2>
+    <div style="text-align:center;margin:15px 0;">
+      <img id="plantImg2" class="img" alt="植物">
+    </div>
     <div id="q2" style="font-size:1.85em;text-align:center;margin:15px 0;"></div>
     <div id="opts2"></div>
     <div id="fb2" style="font-size:1.65em;margin-top:15px;text-align:center;"></div>
@@ -68,6 +71,9 @@ button:active { transform:scale(0.95); }
 <div id="level3" class="page">
   <div class="card">
     <h2>第三關：植物大搜查</h2>
+    <div style="text-align:center;margin:15px 0;">
+      <img id="plantImg3" class="img" alt="植物">
+    </div>
     <div id="q3" style="font-size:1.85em;text-align:center;margin:15px 0;"></div>
     <div id="opts3"></div>
     <div id="fb3" style="font-size:1.65em;margin-top:15px;text-align:center;"></div>
@@ -185,9 +191,9 @@ function checkL1(idx,btn) {
 
 // ========== LEVEL 2 ==========
 const l2 = [
-  {q:'仙人掌最鍾意邊度？', opts:['沙漠 🏜️','水池 💧','花園 🏡'], ans:0, plant:'cactus'},
-  {q:'荷花最鍾意邊度？', opts:['沙漠 🏜️','水池 💧','花園 🏡'], ans:1, plant:'lotus'},
-  {q:'玫瑰最鍾意邊度？', opts:['沙漠 🏜️','水池 💧','花園 🏡'], ans:2, plant:'rose'}
+  {img:'cactus-desert.png', q:'仙人掌最鍾意邊度？', opts:['沙漠 🏜️','水池 💧','花園 🏡'], ans:0, plant:'cactus'},
+  {img:'lotus-pond.png', q:'荷花最鍾意邊度？', opts:['沙漠 🏜️','水池 💧','花園 🏡'], ans:1, plant:'lotus'},
+  {img:'rose-garden.png', q:'玫瑰最鍾意邊度？', opts:['沙漠 🏜️','水池 💧','花園 🏡'], ans:2, plant:'rose'}
 ];
 let l2i = 0;
 
@@ -200,6 +206,7 @@ function startLevel2() {
 
 function renderL2() {
   const d = l2[l2i];
+  document.getElementById('plantImg2').src = `assets/images/scenarios/${d.img}`;
   document.getElementById('q2').innerHTML = d.q;
   const box = document.getElementById('opts2');
   box.innerHTML = '';
@@ -246,9 +253,9 @@ function checkL2(idx,btn,plant) {
 
 // ========== LEVEL 3 ==========
 const l3 = [
-  {q:'邊樣係植物？', opts:['白菜 🥬','雞肉 🍗','魚 🍣'], ans:0, plant:'veg'},
-  {q:'邊樣係植物？', opts:['蘋果 🍎','牛奶 🥛','蛋 🍳'], ans:0, plant:'fruit'},
-  {q:'邊樣係植物？', opts:['紅蘿蔔 🥕','豬肉 🥓','奶酪 🧀'], ans:0, plant:'carrot'}
+  {img:'cabbage.png', q:'邊樣係植物？', opts:['白菜 🥬','雞肉 🍗','魚 🍣'], ans:0, plant:'veg'},
+  {img:'apple.png', q:'邊樣係植物？', opts:['蘋果 🍎','牛奶 🥛','蛋 🍳'], ans:0, plant:'fruit'},
+  {img:'carrot.png', q:'邊樣係植物？', opts:['紅蘿蔔 🥕','豬肉 🥓','奶酪 🧀'], ans:0, plant:'carrot'}
 ];
 let l3i = 0;
 
@@ -261,6 +268,7 @@ function startLevel3() {
 
 function renderL3() {
   const d = l3[l3i];
+  document.getElementById('plantImg3').src = `assets/images/scenarios/${d.img}`;
   document.getElementById('q3').innerHTML = d.q;
   const box = document.getElementById('opts3');
   box.innerHTML = '';
