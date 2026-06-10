@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>奇妙植物園小偵探</title>
+<style>
+:root { --green:#4caf50; --gold:#ffd700; --purple:#7b2cbf; }
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:'Microsoft JhengHei',sans-serif; background:#e8f5e9; color:#1a1a2e; min-height:100vh; touch-action:manipulation; }
+.page { display:none; min-height:100vh; padding:20px; }
+.page.active { display:block; }
+.card { background:#fff; border:5px solid #ffd700; border-radius:24px; padding:30px; max-width:800px; margin:20px auto; box-shadow:0 8px 24px rgba(0,0,0,0.1); }
+h1 { font-size:3em; color:#2e7d32; text-align:center; margin-bottom:20px; }
+h2 { font-size:2.2em; color:#7b2cbf; margin:20px 0; text-align:center; }
+button { min-height:70px; padding:18px 36px; font-size:1.6em; border-radius:20px; border:none; cursor:pointer; background:#4caf50; color:#fff; font-weight:700; }
+button:active { transform:scale(0.95); }
+.quiz-opt { min-height:80px; font-size:1.8em; padding:20px; background:#f0f0f0; border:4px solid #7b2cbf; border-radius:20px; margin:12px 0; width:100%; text-align:left; }
+.quiz-opt.correct { background:#c8e6c9; border-color:#4caf50; }
+.quiz-opt.wrong { background:#ffcdd2; border-color:#f44336; }
+.img { width:220px; height:140px; object-fit:cover; border-radius:16px; border:5px solid #ffd700; display:block; margin:20px auto; }
+.progress { position:fixed; top:0; left:0; width:100%; height:12px; background:#c8e6c9; z-index:1000; }
+.progress-bar { height:100%; background:#4caf50; transition:width .4s; }
+.celebration { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.85); display:none; align-items:center; justify-content:center; z-index:2000; }
+.celebration.show { display:flex; }
+.toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:#333; color:#fff; padding:16px 32px; border-radius:20px; font-size:1.4em; z-index:9999; }
+</style>
+</head>
+<body>
+<div id="progressBar" class="progress"><div id="progressFill" class="progress-bar" style="width:0%"></div></div>
+
+<!-- HOME -->
+<div id="home" class="page active">
+  <div class="card" style="text-align:center;">
+    <h1>🌿 奇妙植物園小偵探</h1>
+    <p style="font-size:1.8em;margin:20px 0;">快啲嚟做植物小偵探！</p>
+    <input id="studentName" type="text" placeholder="輸入你嘅名字" style="font-size:2em;padding:20px;width:80%;max-width:400px;border:5px solid #ffd700;border-radius:20px;text-align:center;margin:20px 0;">
+    <br>
+    <button onclick="startGame()" style="background:#2e7d32;font-size:2em;padding:25px 80px;">開始冒險 🌱</button>
+  </div>
+</div>
+
+<!-- LEVEL 1 -->
+<div id="level1" class="page">
+  <div class="card">
+    <h2>第一關：葉子配對</h2>
+    <div style="text-align:center;margin:20px 0;">
+      <img id="treeImg" class="img" alt="樹">
+    </div>
+    <div id="question" style="font-size:1.8em;text-align:center;margin:20px 0;"></div>
+    <div id="options"></div>
+    <div id="feedback" style="font-size:1.6em;margin-top:20px;text-align:center;"></div>
+    <button onclick="nextLevel()" style="margin-top:30px;background:#7b2cbf;">下一關 →</button>
+  </div>
+</div>
+
+<!-- CELEBRATION -->
+<div id="celebration" class="celebration">
+  <div style="text-align:center;color:#fff;">
+    <div style="font-size:4em;margin-bottom:20px;">🎉 做得好！</div>
+    <div id="celeText" style="font-size:2.2em;margin-bottom:30px;"></div>
+    <button onclick="continueGame()" style="background:#4caf50;font-size:1.8em;padding:20px 60px;">繼續冒險</button>
+  </div>
+</div>
+
+<script>
+// STATE
+let state = { name: '', currentLevel: 1, score: 0, answered: false };
+
+// TTS
+function speak(text) {
+  if (!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'zh-HK';
+  u.rate = 0.85;
+  const voices = speechSynthesis.getVoices();
+  const cantonese = voices.find(v => v.lang.includes('HK') || v.lang.includes('yue'));
+  if (cantonese) u.voice = cantonese;
+  speechSynthesis.speak(u);
+}
+
+// START
+function startGame() {
+  state.name = document.getElementById('studentName').value.trim() || '小偵探';
+  document.getElementById('home').classList.remove('active');
+  document.getElementById('level1').classList.add('active');
+  startLevel1();
+}
+
+function updateProgress(pct) {
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+// LEVEL 1
+const level1Data = [
+  { tree: 'pine', q: '呢片葉子尖尖的像針，你覺得佢係邊棵樹嘅？', opts: ['松樹 🌲', '楓樹 🍁', '蓮花 🪷'], ans: 0, img: 'pine.png' },
+  { tree: 'maple', q: '呢片葉子有五個手指咁，你覺得佢係邊棵樹嘅？', opts: ['松樹 🌲', '楓樹 🍁', '蓮花 🪷'], ans: 1, img: 'maple.png' },
+  { tree: 'lotus', q: '呢片葉子圓圓大大的，你覺得佢係邊棵樹嘅？', opts: ['松樹 🌲', '楓樹 🍁', '蓮花 🪷'], ans: 2, img: 'lotus.png' },
+];
+
+let l1Index = 0;
+
+function startLevel1() {
+  l1Index = 0;
+  updateProgress(10);
+  renderLevel1();
+}
+
+function renderLevel1() {
+  const d = level1Data[l1Index];
+  document.getElementById('treeImg').src = `assets/images/scenarios/${d.img}`;
+  document.getElementById('question').innerHTML = d.q;
+  const optsDiv = document.getElementById('options');
+  optsDiv.innerHTML = '';
+  d.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.innerHTML = opt;
+    btn.onclick = () => checkLevel1(i, btn);
+    optsDiv.appendChild(btn);
+  });
+  document.getElementById('feedback').innerHTML = '';
+  state.answered = false;
+  speak(d.q);
+}
+
+function checkLevel1(idx, btn) {
+  if (state.answered) return;
+  state.answered = true;
+  const d = level1Data[l1Index];
+  const fb = document.getElementById('feedback');
+  if (idx === d.ans) {
+    btn.classList.add('correct');
+    fb.innerHTML = '✅ 答啱喇！好叻！';
+    fb.style.color = '#4caf50';
+    speak('答啱喇！好叻！');
+    state.score++;
+    setTimeout(() => {
+      l1Index++;
+      if (l1Index >= level1Data.length) {
+        showCelebration('第一關完成！你解鎖咗三張植物卡！');
+      } else {
+        renderLevel1();
+      }
+    }, 1600);
+  } else {
+    btn.classList.add('wrong');
+    fb.innerHTML = '❌ 再諗諗！';
+    fb.style.color = '#f44336';
+    speak('再諗諗');
+    setTimeout(() => {
+      btn.classList.remove('wrong');
+      state.answered = false;
+      fb.innerHTML = '';
+    }, 1400);
+  }
+}
+
+function showCelebration(text) {
+  document.getElementById('celeText').innerHTML = text;
+  document.getElementById('celebration').classList.add('show');
+  speak(text);
+  updateProgress(100);
+}
+
+function continueGame() {
+  document.getElementById('celebration').classList.remove('show');
+  // For now, go back to home (next levels coming)
+  document.getElementById('level1').classList.remove('active');
+  document.getElementById('home').classList.add('active');
+}
+
+function nextLevel() {
+  // Placeholder for future levels
+  alert('下一關即將推出！');
+}
+</script>
+</body>
+</html>
