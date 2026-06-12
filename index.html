@@ -220,11 +220,20 @@ function renderL2() {
   const box = document.getElementById('opts2');
   box.innerHTML = '';
   d.opts.forEach((o,i) => {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:12px;margin:14px 0;';
     const b = document.createElement('button');
     b.className = 'quiz-opt';
+    b.style.flex = '1';
     b.innerHTML = o;
     b.onclick = () => checkL2(i,b,d.plant);
-    box.appendChild(b);
+    const tts = document.createElement('button');
+    tts.style.cssText = 'min-height:72px;padding:12px 18px;font-size:1.4em;background:#7b2cbf;border-radius:16px;border:none;color:#fff;';
+    tts.innerHTML = '🔊';
+    tts.onclick = (e) => { e.stopImmediatePropagation(); speak(o); };
+    row.appendChild(b);
+    row.appendChild(tts);
+    box.appendChild(row);
   });
   document.getElementById('fb2').innerHTML = '';
   state.answered = false;
@@ -238,9 +247,9 @@ function checkL2(idx,btn,plant) {
   const fb = document.getElementById('fb2');
   if (idx === d.ans) {
     btn.classList.add('correct');
-    fb.innerHTML = '✅ 搵到家啦！';
+    fb.innerHTML = '✅ 搵到家啦！仙人掌喺沙漠先可以生存，因為佢有刺同厚皮儲水！';
     fb.style.color = '#4caf50';
-    speak('搵到家啦！');
+    speak('搵到家啦！仙人掌喺沙漠先可以生存');
     state.score++;
     if (!state.unlocked.includes(plant)) state.unlocked.push(plant);
     setTimeout(() => {
@@ -250,13 +259,13 @@ function checkL2(idx,btn,plant) {
       } else {
         renderL2();
       }
-    }, 1500);
+    }, 2000);
   } else {
     btn.classList.add('wrong');
-    fb.innerHTML = '❌ 呢度唔啱！';
+    fb.innerHTML = '❌ 呢度唔啱！正確答案係沙漠 🏜️，因為仙人掌鍾意乾旱環境！';
     fb.style.color = '#f44336';
-    speak('呢度唔啱');
-    setTimeout(() => { btn.classList.remove('wrong'); state.answered = false; fb.innerHTML = ''; }, 1300);
+    speak('呢度唔啱！正確答案係沙漠');
+    setTimeout(() => { btn.classList.remove('wrong'); state.answered = false; fb.innerHTML = ''; }, 1800);
   }
 }
 
@@ -282,11 +291,20 @@ function renderL3() {
   const box = document.getElementById('opts3');
   box.innerHTML = '';
   d.opts.forEach((o,i) => {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:12px;margin:14px 0;';
     const b = document.createElement('button');
     b.className = 'quiz-opt';
+    b.style.flex = '1';
     b.innerHTML = o;
     b.onclick = () => checkL3(i,b,d.plant);
-    box.appendChild(b);
+    const tts = document.createElement('button');
+    tts.style.cssText = 'min-height:72px;padding:12px 18px;font-size:1.4em;background:#7b2cbf;border-radius:16px;border:none;color:#fff;';
+    tts.innerHTML = '🔊';
+    tts.onclick = (e) => { e.stopImmediatePropagation(); speak(o); };
+    row.appendChild(b);
+    row.appendChild(tts);
+    box.appendChild(row);
   });
   document.getElementById('fb3').innerHTML = '';
   state.answered = false;
@@ -300,9 +318,9 @@ function checkL3(idx,btn,plant) {
   const fb = document.getElementById('fb3');
   if (idx === d.ans) {
     btn.classList.add('correct');
-    fb.innerHTML = '✅ 搵到植物喇！';
+    fb.innerHTML = '✅ 搵到植物喇！白菜係植物，因為佢有葉綠素可以自己整食物！';
     fb.style.color = '#4caf50';
-    speak('搵到植物喇！');
+    speak('搵到植物喇！白菜係植物');
     state.score++;
     if (!state.unlocked.includes(plant)) state.unlocked.push(plant);
     setTimeout(() => {
@@ -312,13 +330,13 @@ function checkL3(idx,btn,plant) {
       } else {
         renderL3();
       }
-    }, 1500);
+    }, 2000);
   } else {
     btn.classList.add('wrong');
-    fb.innerHTML = '❌ 呢樣唔係植物！';
+    fb.innerHTML = '❌ 呢樣唔係植物！正確答案係白菜 🥬，佢係植物！';
     fb.style.color = '#f44336';
-    speak('呢樣唔係植物');
-    setTimeout(() => { btn.classList.remove('wrong'); state.answered = false; fb.innerHTML = ''; }, 1300);
+    speak('呢樣唔係植物！正確答案係白菜');
+    setTimeout(() => { btn.classList.remove('wrong'); state.answered = false; fb.innerHTML = ''; }, 1800);
   }
 }
 
