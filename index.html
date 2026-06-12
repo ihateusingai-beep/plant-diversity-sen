@@ -176,9 +176,9 @@ function checkL1(idx,btn) {
   const fb = document.getElementById('fb1');
   if (idx === d.ans) {
     btn.classList.add('correct');
-    fb.innerHTML = '✅ 答啱喇！好叻！';
+    fb.innerHTML = '✅ 答啱喇！呢片葉子係松樹嘅針葉，尖尖地可以減少水份流失！';
     fb.style.color = '#4caf50';
-    speak('答啱喇！好叻！');
+    speak('答啱喇！呢片葉子係松樹嘅針葉，尖尖地可以減少水份流失！');
     state.score++;
     if (!state.unlocked.includes('leaf')) state.unlocked.push('leaf');
     setTimeout(() => {
@@ -188,13 +188,13 @@ function checkL1(idx,btn) {
       } else {
         renderL1();
       }
-    }, 1500);
+    }, 2000);
   } else {
     btn.classList.add('wrong');
-    fb.innerHTML = '❌ 再諗諗！';
+    fb.innerHTML = '❌ 再諗諗！正確答案係松樹 🌲，因為佢嘅葉子係針形！';
     fb.style.color = '#f44336';
-    speak('再諗諗');
-    setTimeout(() => { btn.classList.remove('wrong'); state.answered = false; fb.innerHTML = ''; }, 1300);
+    speak('再諗諗！正確答案係松樹，針形葉');
+    setTimeout(() => { btn.classList.remove('wrong'); state.answered = false; fb.innerHTML = ''; }, 1800);
   }
 }
 
