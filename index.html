@@ -375,22 +375,18 @@ function showCelebration(text) {
   document.getElementById('celeText').innerHTML = text;
   document.getElementById('celebration').classList.add('show');
   speak(text);
-  if (state.currentLevel === 1) updateProgress(35);
-  if (state.currentLevel === 2) updateProgress(70);
-  if (state.currentLevel === 3) updateProgress(100);
+  if (state.currentAssessment) {
+    state.completed[state.currentAssessment] = true;
+  }
 }
 
 function nextLevelFromCelebration() {
   document.getElementById('celebration').classList.remove('show');
-  if (state.currentLevel === 1) {
-    state.currentLevel = 2;
-    startLevel2();
-  } else if (state.currentLevel === 2) {
-    state.currentLevel = 3;
-    startLevel3();
-  } else {
-    showDashboard();
-  }
+  // Return to Hub after any assessment
+  document.getElementById('level1').classList.remove('active');
+  document.getElementById('level2').classList.remove('active');
+  document.getElementById('level3').classList.remove('active');
+  document.getElementById('hub').classList.add('active');
 }
 
 function showDashboard() {
