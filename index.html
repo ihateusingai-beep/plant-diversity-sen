@@ -149,11 +149,20 @@ function renderL1() {
   const box = document.getElementById('opts1');
   box.innerHTML = '';
   d.opts.forEach((o,i) => {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:12px;margin:14px 0;';
     const b = document.createElement('button');
     b.className = 'quiz-opt';
+    b.style.flex = '1';
     b.innerHTML = o;
     b.onclick = () => checkL1(i,b);
-    box.appendChild(b);
+    const tts = document.createElement('button');
+    tts.style.cssText = 'min-height:72px;padding:12px 18px;font-size:1.4em;background:#7b2cbf;border-radius:16px;border:none;color:#fff;';
+    tts.innerHTML = '🔊';
+    tts.onclick = (e) => { e.stopImmediatePropagation(); speak(o); };
+    row.appendChild(b);
+    row.appendChild(tts);
+    box.appendChild(row);
   });
   document.getElementById('fb1').innerHTML = '';
   state.answered = false;
