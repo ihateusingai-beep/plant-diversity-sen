@@ -114,7 +114,7 @@ button:active { transform:scale(0.95); }
 </div>
 
 <script>
-let state = { name: '', score: 0, currentLevel: 1, answered: false, unlocked: [] };
+let state = { name: '', score: 0, currentAssessment: 0, answered: false, unlocked: [], completed: {1:false,2:false,3:false} };
 
 function speak(text) {
   if (!('speechSynthesis' in window)) return;
@@ -135,12 +135,10 @@ function updateProgress(pct) {
 function startGame() {
   state.name = document.getElementById('studentName').value.trim() || '小偵探';
   document.getElementById('home').classList.remove('active');
-  document.getElementById('level1').classList.add('active');
-  state.currentLevel = 1;
+  document.getElementById('hub').classList.add('active');
   state.score = 0;
   state.unlocked = [];
   updateProgress(5);
-  startLevel1();
 }
 
 // ========== LEVEL 1 ==========
