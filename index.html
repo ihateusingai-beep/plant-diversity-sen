@@ -141,6 +141,24 @@ function startGame() {
   updateProgress(5);
 }
 
+function startAssessment(num) {
+  document.getElementById('hub').classList.remove('active');
+  state.currentAssessment = num;
+  state.score = 0;
+  state.answered = false;
+  if (num === 1) {
+    document.getElementById('level1').classList.add('active');
+    startLevel1();
+  } else if (num === 2) {
+    document.getElementById('level2').classList.add('active');
+    startLevel2();
+  } else if (num === 3) {
+    document.getElementById('level3').classList.add('active');
+    startLevel3();
+  }
+}
+
+
 // ========== LEVEL 1 ==========
 const l1 = [
   {img:'pine.png', q:'呢片葉子尖尖的像針，你覺得佢係邊棵樹嘅？', opts:['松樹 🌲','楓樹 🍁','蓮花 🪷'], ans:0},
