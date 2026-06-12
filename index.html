@@ -366,14 +366,28 @@ function nextLevelFromCelebration() {
 function showDashboard() {
   document.getElementById('level3').classList.remove('active');
   document.getElementById('dashboard').classList.add('active');
-  document.getElementById('finalScore').innerHTML = `${state.name}，你總共搵到 ${state.score} 分！`;
+  const maxScore = 9;
+  const pct = Math.round(state.score / maxScore * 100);
+  let certLevel = '銅牌';
+  let certColor = '#cd7f32';
+  let certEmoji = '🥉';
+  if (pct >= 85) { certLevel = '金牌'; certColor = '#ffd700'; certEmoji = '🥇'; }
+  else if (pct >= 65) { certLevel = '銀牌'; certColor = '#c0c0c0'; certEmoji = '🥈'; }
   
-  let html = '<h3 style="margin-bottom:15px;">🌿 你嘅植物圖鑑</h3>';
-  state.unlocked.forEach(p => {
-    html += `<div class="plant-card"><div style="font-size:3em;">${p==='leaf'?'🍃':p==='cactus'?'🌵':p==='lotus'?'🪷':p==='rose'?'🌹':p==='veg'?'🥬':p==='fruit'?'🍎':'🥕'}</div><div style="font-size:1.1em;margin-top:8px;">${p}</div></div>`;
-  });
-  document.getElementById('plantBook').innerHTML = html;
-  speak('恭喜你完成全部任務！');
+  let html = `
+    <div style="text-align:center;border:8px solid ${certColor};border-radius:30px;padding:40px 30px;background:#fffef0;color:#1a1a2e;">
+      <div style="font-size:4em;margin-bottom:10px;">${certEmoji}</div>
+      <div style="font-size:2.8em;font-weight:700;color:${certColor};">植物小偵探 ${certLevel}證書</div>
+      <div style="font-size:2.2em;margin:20px 0;">${state.name}</div>
+      <div style="font-size:1.8em;margin:15px 0;">總分：${state.score}/9（${pct}%）</div>
+      <div style="font-size:1.5em;margin-top:25px;">🌿 奇妙植物園小偵探 🌿</div>
+      <div style="font-size:1.3em;margin-top:10px;color:#666;">匡智張玉瓊晨暉學校 • ${new Date().toLocaleDateString('zh-HK')}</div>
+    </div>
+    <button onclick="window.print()" style="margin-top:25px;background:#ffd700;color:#1a1a2e;font-size:1.6em;">🖨️ 打印證書</button>
+  `;
+  document.getElementById('finalScore').innerHTML = html;
+  document.getElementById('plantBook').innerHTML = '';
+  speak(`恭喜你獲得${certLevel}！`);
 }
 
 function restartGame() {
