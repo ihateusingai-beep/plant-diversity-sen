@@ -161,11 +161,16 @@ function startAssessment(num) {
 
 // ========== LEVEL 1 ==========
 const l1 = [
-  {img:'pine.png', q:'呢片葉子尖尖的像針，你覺得佢係邊棵樹嘅？', opts:['松樹 🌲','楓樹 🍁','蓮花 🪷'], ans:0},
-  {img:'maple.png', q:'呢片葉子有五個手指咁，你覺得佢係邊棵樹嘅？', opts:['松樹 🌲','楓樹 🍁','蓮花 🪷'], ans:1},
-  {img:'lotus.png', q:'呢片葉子圓圓大大的，你覺得佢係邊棵樹嘅？', opts:['松樹 🌲','楓樹 🍁','蓮花 🪷'], ans:2},
-  {img:'bamboo.png', q:'呢片葉子長長瘦瘦，你覺得佢係邊棵樹嘅？', opts:['松樹 🌲','竹 🌿','蓮花 🪷'], ans:1},
-  {img:'ginkgo.png', q:'呢片葉子有缺口像扇，你覺得佢係邊棵樹嘅？', opts:['銀杏 🍂','楓樹 🍁','松樹 🌲'], ans:0}
+  {img:"pine.png", q:"呢片葉子尖尖的像針，你覺得佢係邊棵樹嘅？", opts:["松樹 🌲","楓樹 🍁","蓮花 🪷"], ans:0},
+  {img:"maple.png", q:"呢片葉子有五個手指咁，你覺得佢係邊棵樹嘅？", opts:["松樹 🌲","楓樹 🍁","蓮花 🪷"], ans:1},
+  {img:"lotus.png", q:"呢片葉子圓圓大大的，你覺得佢係邊棵樹嘅？", opts:["松樹 🌲","楓樹 🍁","蓮花 🪷"], ans:2},
+  {img:"bamboo.png", q:"呢片葉子長長瘦瘦，你覺得佢係邊棵樹嘅？", opts:["松樹 🌲","竹 🌿","蓮花 🪷"], ans:1},
+  {img:"ginkgo.png", q:"呢片葉子有缺口像扇，你覺得佢係邊棵樹嘅？", opts:["銀杏 🍂","楓樹 🍁","松樹 🌲"], ans:0},
+  {img:"willow.png", q:"呢片葉子長長軟軟，你覺得佢係邊棵樹嘅？", opts:["柳樹 🌳","松樹 🌲","蓮花 🪷"], ans:0},
+  {img:"oak.png", q:"呢片葉子有波浪邊，你覺得佢係邊棵樹嘅？", opts:["橡樹 🌳","竹 🌿","松樹 🌲"], ans:0},
+  {img:"palm.png", q:"呢片葉子大扇形，你覺得佢係邊棵樹嘅？", opts:["棕櫚樹 🌴","楓樹 🍁","松樹 🌲"], ans:0},
+  {img:"cactus.png", q:"呢片葉子變咗刺，你覺得佢係邊棵樹嘅？", opts:["仙人掌 🌵","竹 🌿","蓮花 🪷"], ans:0},
+  {img:"banyan.png", q:"呢片葉子圓圓有尖，你覺得佢係邊棵樹嘅？", opts:["榕樹 🌳","松樹 🌲","楓樹 🍁"], ans:0}
 ];
 let l1i = 0;
 
@@ -232,11 +237,16 @@ function checkL1(idx,btn) {
 
 // ========== LEVEL 2 ==========
 const l2 = [
-  {img:'cactus-desert.png', q:'仙人掌最鍾意邊度？', opts:['沙漠 🏜️','水池 💧','花園 🏡'], ans:0, plant:'cactus'},
-  {img:'lotus-pond.png', q:'荷花最鍾意邊度？', opts:['沙漠 🏜️','水池 💧','花園 🏡'], ans:1, plant:'lotus'},
-  {img:'rose-garden.png', q:'玫瑰最鍾意邊度？', opts:['沙漠 🏜️','水池 💧','花園 🏡'], ans:2, plant:'rose'},
-  {img:'kelp-sea.png', q:'海帶最鍾意邊度？', opts:['沙漠 🏜️','大海 🌊','花園 🏡'], ans:1, plant:'kelp'},
-  {img:'pine-mountain.png', q:'松樹最鍾意邊度？', opts:['高山 ⛰️','水池 💧','花園 🏡'], ans:0, plant:'pine'}
+  {img:"cactus-desert.png", q:"仙人掌最鍾意邊度？", opts:["沙漠 🏜️","水池 💧","花園 🏡"], ans:0, plant:"cactus"},
+  {img:"lotus-pond.png", q:"荷花最鍾意邊度？", opts:["沙漠 🏜️","水池 💧","花園 🏡"], ans:1, plant:"lotus"},
+  {img:"rose-garden.png", q:"玫瑰最鍾意邊度？", opts:["沙漠 🏜️","水池 💧","花園 🏡"], ans:2, plant:"rose"},
+  {img:"kelp-sea.png", q:"海帶最鍾意邊度？", opts:["沙漠 🏜️","大海 🌊","花園 🏡"], ans:1, plant:"kelp"},
+  {img:"pine-mountain.png", q:"松樹最鍾意邊度？", opts:["高山 ⛰️","水池 💧","花園 🏡"], ans:0, plant:"pine"},
+  {img:"bamboo-forest.png", q:"竹最鍾意邊度？", opts:["高山 ⛰️","森林 🌲","沙漠 🏜️"], ans:1, plant:"bamboo"},
+  {img:"willow-river.png", q:"柳樹最鍾意邊度？", opts:["河邊 💧","高山 ⛰️","沙漠 🏜️"], ans:0, plant:"willow"},
+  {img:"palm-beach.png", q:"棕櫚樹最鍾意邊度？", opts:["沙灘 🏖️","高山 ⛰️","森林 🌲"], ans:0, plant:"palm"},
+  {img:"ginkgo-park.png", q:"銀杏最鍾意邊度？", opts:["公園 🏞️","大海 🌊","沙漠 🏜️"], ans:0, plant:"ginkgo"},
+  {img:"banyan-tree.png", q:"榕樹最鍾意邊度？", opts:["公園 🏞️","高山 ⛰️","大海 🌊"], ans:0, plant:"banyan"}
 ];
 let l2i = 0;
 
@@ -305,11 +315,16 @@ function checkL2(idx,btn,plant) {
 
 // ========== LEVEL 3 ==========
 const l3 = [
-  {img:'cabbage.png', q:'邊樣係植物？', opts:['雞肉 🍗','白菜 🥬','魚 🍣'], ans:1, plant:'veg'},
-  {img:'apple.png', q:'邊樣係植物？', opts:['牛奶 🥛','蘋果 🍎','蛋 🍳'], ans:1, plant:'fruit'},
-  {img:'carrot.png', q:'邊樣係植物？', opts:['紅蘿蔔 🥕','豬肉 🥓','奶酪 🧀'], ans:0, plant:'carrot'},
-  {img:'broccoli.png', q:'邊樣係植物？', opts:['西蘭花 🥦','牛肉 🥩','蝦 🦐'], ans:0, plant:'broccoli'},
-  {img:'banana.png', q:'邊樣係植物？', opts:['香蕉 🍌','豬肉 🥓','奶酪 🧀'], ans:0, plant:'banana'}
+  {img:"cabbage.png", q:"邊樣係植物？", opts:["雞肉 🍗","白菜 🥬","魚 🍣"], ans:1, plant:"veg"},
+  {img:"apple.png", q:"邊樣係植物？", opts:["牛奶 🥛","蘋果 🍎","蛋 🍳"], ans:1, plant:"fruit"},
+  {img:"carrot.png", q:"邊樣係植物？", opts:["紅蘿蔔 🥕","豬肉 🥓","奶酪 🧀"], ans:0, plant:"carrot"},
+  {img:"broccoli.png", q:"邊樣係植物？", opts:["西蘭花 🥦","牛肉 🥩","蝦 🦐"], ans:0, plant:"broccoli"},
+  {img:"banana.png", q:"邊樣係植物？", opts:["香蕉 🍌","豬肉 🥓","奶酪 🧀"], ans:0, plant:"banana"},
+  {img:"tomato.png", q:"邊樣係植物？", opts:["西紅柿 🍅","豬肉 🥓","奶酪 🧀"], ans:0, plant:"tomato"},
+  {img:"potato.png", q:"邊樣係植物？", opts:["薯仔 🥔","雞肉 🍗","魚 🍣"], ans:0, plant:"potato"},
+  {img:"corn.png", q:"邊樣係植物？", opts:["粟米 🌽","牛奶 🥛","蛋 🍳"], ans:0, plant:"corn"},
+  {img:"grape.png", q:"邊樣係植物？", opts:["提子 🍇","豬肉 🥓","奶酪 🧀"], ans:0, plant:"grape"},
+  {img:"orange.png", q:"邊樣係植物？", opts:["橙 🍊","雞肉 🍗","魚 🍣"], ans:0, plant:"orange"}
 ];
 let l3i = 0;
 
