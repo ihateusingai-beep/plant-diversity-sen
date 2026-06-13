@@ -210,28 +210,29 @@ function checkL1(idx,btn) {
   if (state.answered) return;
   state.answered = true;
   const d = l1[l1i];
-  const fb = document.getElementById('fb1');
+  const fb = document.getElementById("fb1");
   if (idx === d.ans) {
-    btn.classList.add('correct');
-    fb.innerHTML = '✅ 答啱喇！呢片葉子係松樹嘅針葉，尖尖地可以減少水份流失！';
-    fb.style.color = '#4caf50';
-    speak('答啱喇！呢片葉子係松樹嘅針葉，尖尖地可以減少水份流失！');
+    btn.classList.add("correct");
+    const plantName = d.img.replace(".png","");
+    fb.innerHTML = "✅ 答啱喇！呢片葉子係" + plantName + "嘅特徵，好醒目！";
+    fb.style.color = "#4caf50";
+    speak("答啱喇！呢片葉子係" + plantName + "嘅特徵");
     state.score++;
-    if (!state.unlocked.includes('leaf')) state.unlocked.push('leaf');
+    if (!state.unlocked.includes("leaf")) state.unlocked.push("leaf");
     setTimeout(() => {
       l1i++;
       if (l1i >= l1.length) {
-        showCelebration('第一關完成！你解鎖咗葉子卡！');
+        showCelebration("第一關完成！你解鎖咗葉子卡！");
       } else {
         renderL1();
       }
-    }, 2000);
+    }, 3500);
   } else {
-    btn.classList.add('wrong');
-    fb.innerHTML = '❌ 再諗諗！正確答案係松樹 🌲，因為佢嘅葉子係針形！';
-    fb.style.color = '#f44336';
-    speak('再諗諗！正確答案係松樹，針形葉');
-    setTimeout(() => { btn.classList.remove('wrong'); state.answered = false; fb.innerHTML = ''; }, 1800);
+    btn.classList.add("wrong");
+    fb.innerHTML = "❌ 再諗諗！搵吓正確答案啦！";
+    fb.style.color = "#f44336";
+    speak("再諗諗！搵吓正確答案啦！");
+    setTimeout(() => { btn.classList.remove("wrong"); state.answered = false; fb.innerHTML = ""; }, 2200);
   }
 }
 
